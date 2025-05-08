@@ -10,11 +10,10 @@ import 'screens/fcm_screen.dart';
 import 'screens/responsive_screen.dart';
 import 'screens/animation_screen.dart';
 import 'screens/custom_paint_screen.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   await Hive.initFlutter();
   await Hive.openBox('myBox');
 
@@ -26,21 +25,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/shared_prefs': (context) => SharedPrefsScreen(),
-        '/hive': (context) => HiveScreen(),
-        '/secure_storage': (context) => SecureStorageScreen(),
-        '/sqflite': (context) => SqfliteScreen(),
-        '/firestore': (context) => FirestoreScreen(),
-        '/fcm': (context) => FcmScreen(),
-        '/responsive': (context) => ResponsiveScreen(),
-        '/animations': (context) => AnimationScreen(),
-        '/custom_paint': (context) => CustomPaintScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812), // Base thiết kế, ví dụ iPhone X
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo App',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const HomeScreen(),
+            '/shared_prefs': (context) => const SharedPrefsScreen(),
+            '/hive': (context) => const HiveScreen(),
+            '/secure_storage': (context) => const SecureStorageScreen(),
+            '/sqflite': (context) => const SqfliteScreen(),
+            '/firestore': (context) => const FirestoreScreen(),
+            '/fcm': (context) => const FcmScreen(),
+            '/responsive': (context) => const ResponsiveScreen(),
+            '/animations': (context) => const AnimationScreen(),
+            '/custom_paint': (context) => const CustomPaintScreen(),
+          },
+        );
       },
     );
   }
